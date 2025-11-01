@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "591166718961",
+    "project_id": "com-myflama-app",
+    "storage_bucket": "com-myflama-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591166718961:android:5535ae727b5d74fe30ba50",
+        "android_client_info": {
+          "package_name": "com.myflama.safeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591166718961-13ih9js1jd38lmorpanf1pgks6at7bc3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myflama.safeapp",
+            "certificate_hash": "5da94503c6c856dc884b118a530acbd2c0e13d40"
+          }
+        },
+        {
+          "client_id": "591166718961-r71cht52fqe2ufdgokrkepushvgb8ft7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myflama.safeapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "591166718961-9hp3rtpc40ajtvhkl6msl5dgq4gu4agj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlMJjPgwPMsq7_oy2dmrzMeRO9UvkaR00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591166718961-9hp3rtpc40ajtvhkl6msl5dgq4gu4agj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591166718961:android:1b837302858b80cb30ba50",
+        "android_client_info": {
+          "package_name": "com.myflamaSocial.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591166718961-ufbn702527c3gvb0clf38d1sh29429ha.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myflamaSocial.app",
+            "certificate_hash": "5da94503c6c856dc884b118a530acbd2c0e13d40"
+          }
+        },
+        {
+          "client_id": "591166718961-9hp3rtpc40ajtvhkl6msl5dgq4gu4agj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlMJjPgwPMsq7_oy2dmrzMeRO9UvkaR00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591166718961-9hp3rtpc40ajtvhkl6msl5dgq4gu4agj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

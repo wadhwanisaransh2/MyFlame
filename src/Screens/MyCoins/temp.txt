@@ -1,0 +1,436 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+} from 'react-native';
+import { PlaySVG } from '../../Assets/Images/SVGs/BottomTabSVG';
+import CustomHeader from '../../Components/Header/CustomHeader';
+import { IMAGES } from '../../Assets';
+import FastImage from 'react-native-fast-image';
+
+
+
+interface Transaction {
+  id: string;
+  type: 'earned' | 'spent' | 'received';
+  amount: number;
+  description: string;
+  date: string;
+  icon: string;
+}
+
+interface CoinScreenProps {}
+
+const CoinScreen = () => {
+  const [coinBalance, setCoinBalance] = useState(2547);
+  
+  
+  const transactions: Transaction[] = [
+    {
+      id: '1',
+      type: 'earned',
+      amount: 50,
+      description: 'Watched video ad',
+      date: '2 hours ago',
+      icon: 'play-circle'
+    },
+    {
+      id: '2',
+      type: 'earned',
+      amount: 100,
+      description: 'Friend referral bonus',
+      date: '1 day ago',
+      icon: 'people'
+    },
+    {
+      id: '3',
+      type: 'spent',
+      amount: -25,
+      description: 'Premium feature unlock',
+      date: '2 days ago',
+      icon: 'star'
+    },
+    {
+      id: '4',
+      type: 'received',
+      amount: 75,
+      description: 'Shared from @john_doe',
+      date: '3 days ago',
+      icon: 'gift'
+    },
+    {
+      id: '5',
+      type: 'earned',
+      amount: 30,
+      description: 'Daily check-in bonus',
+      date: '4 days ago',
+      icon: 'calendar'
+    }
+  ];
+
+  const handleWatchVideo = () => {
+    Alert.alert(
+      'Watch Video',
+      'Watch a short video to earn 50 coins!',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Watch Now',
+          onPress: () => {
+            setCoinBalance(prev => prev + 50);
+            Alert.alert('Success!', 'You earned 50 coins!');
+          }
+        }
+      ]
+    );
+  };
+
+  const handleRefer = () => {
+    Alert.alert(
+      'Refer Friends',
+      'Share your referral code: COIN2024\nEarn 100 coins for each friend who joins!',
+      [
+        { text: 'Copy Code', onPress: () => Alert.alert('Copied!', 'Referral code copied to clipboard') },
+        { text: 'Share', onPress: () => Alert.alert('Share', 'Opening share options...') }
+      ]
+    );
+  };
+
+  const handleShareCoins = () => {
+    Alert.alert(
+      'Share Coins',
+      'How many coins would you like to share?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: '25 Coins', onPress: () => shareCoins(25) },
+        { text: '50 Coins', onPress: () => shareCoins(50) },
+        { text: '100 Coins', onPress: () => shareCoins(100) }
+      ]
+    );
+  };
+
+  const shareCoins = (amount: number) => {
+    if (coinBalance >= amount) {
+      setCoinBalance(prev => prev - amount);
+      Alert.alert('Success!', `You shared ${amount} coins with a friend!`);
+    } else {
+      Alert.alert('Insufficient Balance', 'You don\'t have enough coins to share.');
+    }
+  };
+
+  const renderTransaction = ({ item }: { item: Transaction }) => (
+    <View style={styles.transactionItem}>
+      <View style={styles.transactionIcon}>
+        {/* <Ionicons 
+          name={item.icon as any} 
+          size={24} 
+          color={item.type === 'spent' ? '#FF6B6B' : '#4A5AE5'} 
+        /> */}
+        <Text >{"NAYNA"}</Text>
+      </View>
+      <View style={styles.transactionDetails}>
+        <Text style={styles.transactionDescription}>{item.description}</Text>
+        <Text style={styles.transactionDate}>{item.date}</Text>
+      </View>
+      <Text style={[
+        styles.transactionAmount,
+        { color: item.type === 'spent' ? '#FF6B6B' : '#4CAF50' }
+      ]}>
+        {item.type === 'spent' ? '' : '+'}{item.amount}
+      </Text>
+    </View>
+  );
+
+  return (
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {/* Header */}
+     <CustomHeader title={"My Coins"}/>
+
+      {/* Coin Balance Card */}
+      <View style={styles.balanceCard}>
+        <View style={styles.coinIcon}>
+         <FastImage
+          source={IMAGES.Coins}
+          resizeMode={FastImage.resizeMode.contain}
+          style={{
+            width: 40,
+            height: 40,
+          }}
+          tintColor={"#fff"}
+         />
+        </View>
+        <Text style={styles.balanceLabel}>Total Balance</Text>
+        <Text style={styles.balanceAmount}>{coinBalance.toLocaleString()}</Text>
+        <Text style={styles.balanceSubtext}>Coins</Text>
+      </View>
+
+      {/* Action Buttons */}
+      <View style={styles.actionGrid}>
+        <TouchableOpacity style={styles.actionButton} onPress={handleWatchVideo}>
+          <View style={[styles.actionIconContainer, { backgroundColor: '#E8F5E8' }]}>
+            <PlaySVG fill={"#4CAF50"} width={28} height={28}/>
+          </View>
+          <Text style={styles.actionText}>Watch Video</Text>
+          <Text style={styles.actionSubtext}>+50 coins</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionButton} onPress={handleRefer}>
+          <View style={[styles.actionIconContainer, { backgroundColor: '#E3F2FD' }]}>
+            <Text>{"People"}</Text>
+          </View>
+          <Text style={styles.actionText}>Refer Friends</Text>
+          <Text style={styles.actionSubtext}>+100 coins</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionButton} onPress={handleShareCoins}>
+          <View style={[styles.actionIconContainer, { backgroundColor: '#FFF3E0' }]}>
+            <Text>{"Gift"}</Text>
+          </View>
+          <Text style={styles.actionText}>Share Coins</Text>
+          <Text style={styles.actionSubtext}>Send to friends</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.actionButton}>
+          <View style={[styles.actionIconContainer, { backgroundColor: '#F3E5F5' }]}>
+            <Text>{"Calendar"}</Text>
+          </View>
+          <Text style={styles.actionText}>Daily Bonus</Text>
+          <Text style={styles.actionSubtext}>+30 coins</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Transaction History */}
+      <View style={styles.historySection}>
+        <View style={styles.historyHeader}>
+          <Text style={styles.historyTitle}>Transaction History</Text>
+          <TouchableOpacity>
+            <Text style={styles.seeAllText}>See All</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.transactionList}>
+          <FlatList
+            data={transactions}
+            renderItem={renderTransaction}
+            keyExtractor={(item) => item.id}
+            scrollEnabled={false}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      </View>
+
+      {/* Bottom Action */}
+      <TouchableOpacity style={styles.primaryButton}>
+        {/* <PlusSVG width={24} height={24}/> */}
+        <Text>{"+"}</Text>
+        <Text style={styles.primaryButtonText}>Earn More Coins</Text>
+      </TouchableOpacity>
+
+      <View style={styles.bottomSpace} />
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F8F9FA',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    paddingBottom: 20,
+    backgroundColor: 'white',
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+  },
+  balanceCard: {
+    backgroundColor: 'white',
+    marginHorizontal: 20,
+    marginTop: 20,
+    borderRadius: 20,
+    padding: 30,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  coinIcon: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#4A5AE5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  balanceLabel: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 5,
+  },
+  balanceAmount: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#4A5AE5',
+    marginBottom: 5,
+  },
+  balanceSubtext: {
+    fontSize: 14,
+    color: '#999',
+  },
+  actionGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 20,
+    marginTop: 30,
+    justifyContent: 'space-between',
+  },
+  actionButton: {
+    width: '48%',
+    backgroundColor: 'white',
+    borderRadius: 15,
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  actionIconContainer: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  actionText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  actionSubtext: {
+    fontSize: 12,
+    color: '#666',
+    textAlign: 'center',
+  },
+  historySection: {
+    marginTop: 30,
+    paddingHorizontal: 20,
+  },
+  historyHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  historyTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+  },
+  seeAllText: {
+    fontSize: 14,
+    color: '#4A5AE5',
+    fontWeight: '500',
+  },
+  transactionList: {
+    backgroundColor: 'white',
+    borderRadius: 15,
+    padding: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  transactionItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F0F0F0',
+  },
+  transactionIcon: {
+    width: 45,
+    height: 45,
+    borderRadius: 22.5,
+    backgroundColor: '#F8F9FA',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  transactionDetails: {
+    flex: 1,
+  },
+  transactionDescription: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#333',
+    marginBottom: 3,
+  },
+  transactionDate: {
+    fontSize: 12,
+    color: '#999',
+  },
+  transactionAmount: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  primaryButton: {
+    backgroundColor: '#4A5AE5',
+    marginHorizontal: 20,
+    marginTop: 30,
+    borderRadius: 15,
+    padding: 18,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#4A5AE5',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  primaryButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 10,
+  },
+  bottomSpace: {
+    height: 30,
+  },
+});
+
+export default CoinScreen;

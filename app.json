@@ -1,0 +1,7 @@
+{
+  "name": "MyFlamaApp",
+  "displayName": "MyFlama",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9892200700072490~6382367446"
+  }
+}
