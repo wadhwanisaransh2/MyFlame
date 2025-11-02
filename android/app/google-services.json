@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "591166718961-75lp7avot4nc4jvgfqtjc9qvkr9kbsbo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myflama.safeapp",
+            "certificate_hash": "662f1e525b3271e305d68f4dad7ac43bf4544a37"
+          }
+        },
+        {
           "client_id": "591166718961-r71cht52fqe2ufdgokrkepushvgb8ft7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -59,7 +67,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "591166718961-ufbn702527c3gvb0clf38d1sh29429ha.apps.googleusercontent.com",
+          "client_id": "591166718961-ufbn702527c3gvb0clf38d1pgks6at7bc3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.myflamaSocial.app",

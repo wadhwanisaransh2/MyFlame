@@ -48,8 +48,30 @@
 # React Native Gesture Handler
 -keep class com.swmansion.** { *; }
 
-# React Native Reanimated
+# React Native Reanimated - Comprehensive rules
 -keep class com.swmansion.reanimated.** { *; }
+-keep class com.facebook.react.turbomodule.** { *; }
+-keep class com.facebook.jni.** { *; }
+-keep class com.facebook.react.bridge.** { *; }
+
+# Reanimated Worklets and Layout Animation
+-keep class com.swmansion.reanimated.layoutReanimation.** { *; }
+-keep class com.swmansion.reanimated.sensor.** { *; }
+-keep class com.swmansion.reanimated.keyboardObserver.** { *; }
+-keep class com.swmansion.reanimated.Scheduler.** { *; }
+
+# Keep all native methods for Reanimated
+-keepclassmembers class com.swmansion.reanimated.** {
+    native <methods>;
+}
+
+# Prevent obfuscation of Reanimated classes
+-keepnames class com.swmansion.reanimated.**
+-keepclassmembernames class com.swmansion.reanimated.** { *; }
+
+# Keep Hermes and JSC related classes
+-keep class com.facebook.hermes.** { *; }
+-keep class com.facebook.jsc.** { *; }
 
 # React Native SVG
 -keep class com.horcrux.** { *; }

@@ -92,6 +92,7 @@ android {
         manifestPlaceholders = [
             GOOGLE_MAPS_API_KEY: project.hasProperty('GOOGLE_MAPS_API_KEY') ? project.property('GOOGLE_MAPS_API_KEY') : ''
         ]
+        
     }
     signingConfigs {
         debug {
@@ -109,16 +110,35 @@ android {
             }
         }
     }
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libjsc.so'
+        pickFirst '**/libhermes.so'
+        pickFirst '**/libfbjni.so'
+        pickFirst '**/libreactnativejni.so'
+    }
+    
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            // Enables code and resource shrinking for release builds
+            crunchPngs true
+        }
+    }
+    
+    // Enable splitting for different densities and ABIs
+    splits {
+        abi {
+            enable true
+            reset()
+            include "armeabi-v7a", "arm64-v8a"
+            universalApk false
         }
     }
 }
@@ -129,6 +149,9 @@ dependencies {
     implementation("com.facebook.react:react-android")
     implementation platform('com.google.firebase:firebase-bom:33.15.0')
     implementation 'com.google.firebase:firebase-analytics'
+    
+    // Add RxJava3 for Reanimated
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
